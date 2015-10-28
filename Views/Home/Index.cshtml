@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Summary</h1>
+    <p class="lead">
+        Before MySQL 5.0.3, if you need a data type for which trailing spaces are not removed,
+        consider using a BLOB or TEXT type. Also, if you want to store binary values such as results from an
+        encryption or compression function that might contain arbitrary byte values, use a BLOB column rather
+        than a CHAR or VARCHAR column, to avoid potential problems with trailing space removal that would change data values.<br />邮箱：qinfengwangyi@163.com
+    </p>
+    <p><a href="@Url.Action("AddArticle", "Home")" class="btn btn-primary btn-lg">Manager &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <a href="@Url.Action("Index", "Article")" class="btn btn-primary">ArticleList &raquo;</a>
+    </div>
+    <div class="col-md-4">
+        <input class="form-control" id="2" name="test" type="text" value="111" />&nbsp;&nbsp;
+    </div>
+    <div class="col-md-4">
+        <input class="form-control" id="3" name="text" type="text" value="222" />&nbsp;&nbsp;
+        <input type="button" name="button" value="弹出" class="btn btn-info" />
+    </div>
+</div>
+<p></p>
+<div class="row">
+    <div class="col-md-4">
+        <input id="test" type="button" class="btn btn-info" value="测试log4net" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>.NET</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a id="more" class="btn btn-info" href="#">了解更多</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>IOS</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Android</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>
+    </div>
+</div>
+<script type="text/javascript" src="/Scripts/jquery-1.10.2.min.js">
+
+    var list = { Name: "Michel", Address: "美国" };
+    $("#more").click(function () {
+        var Students = list;
+        $.ajax({
+            url: '/Article/GetInfo',
+            type: 'post',
+            data: { id: 123, students: Students },
+            success: function (data) {
+                $.each(data, function () {
+                    alert(this.Name + " : " + this.Address);
+                })
+            },
+            error: function (data) {
+                alert(data.responseText + "+" + data.readyState);
+            }
+        });
+    });
+
+    var input = $("[name=test]");
+    $("input[name='button']").click(function () {
+        alert(input.eq(1).val());
+    });
+
+
+    $("#test").click(function () {
+        $.get(
+            "/Home/GetLog",
+            { a: 111, b: 0 },
+            function (data) {
+                alert(data);
+            },
+            "json");
+    });
+</script>
